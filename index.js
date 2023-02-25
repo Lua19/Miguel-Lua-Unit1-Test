@@ -69,10 +69,11 @@ app.post("/login", async function (req,res) {
 //  }
 app.post("/updatestudent", async function (req,res) {
     let localStudent = students.find(({ Id }) => Id == req.body.Id);
+    let localIndex = students.indexOf(localStudent);
     let password = await bcrypt.hash(req.body.Password,10);
     req.body.Password = password
-    localStudent = req.body;
-    res.send(localStudent)
+    students[localIndex] = req.body;
+    res.send(students)
 });
 
 // //This endpoint needs an ID as a JSON
